@@ -26,7 +26,7 @@ public class NewsArticle {
 
     @NotBlank(message = "The title must not be blank")
     @NotEmpty(message = "The title must not be empty")
-    @Size(max = 200, message = "the title must be less then 200 ")
+    @Size(min = 200, message = "the title must be more then 200 ")
     private String content;
 
     @NotBlank(message = "The category must not be blank")
