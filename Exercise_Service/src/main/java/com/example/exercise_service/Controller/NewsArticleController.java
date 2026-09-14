@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @RestController
@@ -87,8 +88,14 @@ public class NewsArticleController {
 
         ArrayList<NewsArticle> temp = newsArticleService.getByCategory(category);
 
-        if (temp.isEmpty()){
+        if (temp.isEmpty()) {
             return ResponseEntity.status(400).body(new ApiResponse("no article in this category"));
+        }
+
+        NewsArticle noMatch= new NewsArticle("000" , "nOmAtCh" , "nOmAtCh" , "nOmAtCh" , "nOmAtCh" , "nOmAtCh" , false , LocalDate.now());
+
+        if (temp.get(0).equals(noMatch)){
+            return ResponseEntity.status(400).body(new ApiResponse("The category must be politics or sports or technology"));
         }
         return ResponseEntity.status(200).body(temp);
     }

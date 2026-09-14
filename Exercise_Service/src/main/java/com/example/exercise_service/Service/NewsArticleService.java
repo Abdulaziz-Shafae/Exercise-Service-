@@ -1,6 +1,7 @@
 package com.example.exercise_service.Service;
 
 import com.example.exercise_service.Model.NewsArticle;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -68,7 +69,15 @@ public class NewsArticleService {
     }
 
     public ArrayList<NewsArticle> getByCategory(String category){
+
         ArrayList<NewsArticle> temp= new ArrayList<>();
+
+        if(!category.equalsIgnoreCase("politics") && !category.equalsIgnoreCase("sports") &&  !category.equalsIgnoreCase("technology")) {
+            NewsArticle noMatch= new NewsArticle("000" , "nOmAtCh" , "nOmAtCh" , "nOmAtCh" , "nOmAtCh" , "nOmAtCh" , false , LocalDate.now());
+            temp.add(noMatch);
+            return temp;
+        }
+
         for( int i=0 ; i<newsArticles.size() ; i++){
             if(newsArticles.get(i).getCategory().equalsIgnoreCase(category)){
                 temp.add(newsArticles.get(i));
